@@ -43,6 +43,6 @@ class AuthController extends Controller
         Auth::logout();
         $request->session()->invalidate();  // Hapus session
         $request->session()->regenerateToken();  // Regenerasi token CSRF
-        return redirect('/login');  // Arahkan kembali ke halaman login setelah logout
+        return redirect('/');  // Arahkan kembali ke halaman login setelah logout
     }
 }

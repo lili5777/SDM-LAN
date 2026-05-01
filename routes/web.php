@@ -6,14 +6,14 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-// Route Landing Page
-Route::get('/', function () {return view('welcome');})->name('home');
-Route::get('/profil', function () {return view('profil');})->name('profil');
-Route::get('/publikasi', function () {return view('publikasi');})->name('publikasi');
+// // Route Landing Page
+// Route::get('/', function () {return view('welcome');})->name('home');
+// Route::get('/profil', function () {return view('profil');})->name('profil');
+// Route::get('/publikasi', function () {return view('publikasi');})->name('publikasi');
 
 
 // Route Authentication
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'proses_login'])->name('login.submit');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 

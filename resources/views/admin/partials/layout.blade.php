@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Dashboard - LAN Pusjar SKMP')</title>
+    <title>@yield('title', 'Dashboard - JABLAYMEN')</title>
     <link rel="icon" href="{{ asset('gambar/lanri.png') }}" type="image/png">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -13,51 +13,51 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #1a3a6c;
-            --secondary-color: #2c5aa0;
-            --accent-color: #e63946;
-            --gold-color: #d4af37;
-            --dark-color: #0d1b2a;
-            --light-color: #f8f9fa;
-            --success-color: #2a9d8f;
+            --primary-color: #166534;
+            --secondary-color: #15803d;
+            --accent-color: #ef4444;
+            --gold-color: #34d474;
+            --dark-color: #0f172a;
+            --light-color: #f0fdf6;
+            --success-color: #16a34a;
             --sidebar-width: 280px;
             --sidebar-collapsed-width: 80px;
             --topbar-height: 70px;
-            --sidebar-bg: #1a3a6c;
-            --sidebar-hover: #2c5aa0;
-            --text-light: #e2e8f0;
+            --sidebar-bg: #166534;
+            --sidebar-hover: #15803d;
+            --text-light: #dcfce8;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'DM Sans', sans-serif;
         }
 
         body {
-            background-color: #f5f7fb;
+            background-color: #f0fdf6;
             overflow-x: hidden;
-            color: #333;
+            color: #0f172a;
         }
 
         /* Sidebar Styles */
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: var(--sidebar-width);
-    height: 100vh;
-    background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-    color: var(--text-light);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1050;
-    overflow: hidden; /* Menyembunyikan overflow di seluruh sidebar */
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
-}
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: linear-gradient(180deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-light);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1050;
+            overflow: hidden;
+            box-shadow: 4px 0 20px rgba(22, 101, 52, 0.18);
+        }
 
         .sidebar::-webkit-scrollbar {
             width: 6px;
@@ -76,18 +76,17 @@
             width: var(--sidebar-collapsed-width);
         }
 
-       .sidebar-header {
-    padding: 1.75rem 1.5rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: rgba(0, 0, 0, 0.1);
-    position: sticky; /* Menjaga header tetap di atas */
-    top: 0;
-    z-index: 1100;
-}
-
+        .sidebar-header {
+            padding: 1.75rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1100;
+        }
 
         .sidebar-header::before {
             content: '';
@@ -100,19 +99,24 @@
             border-radius: 50%;
         }
 
+        /* FIXED: logo sekarang bulat putih untuk img */
         .sidebar-logo {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, #fff, var(--gold-color));
-            border-radius: 12px;
+            background: #ffffff;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: var(--primary-color);
-            font-size: 1.5rem;
             flex-shrink: 0;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .sidebar-logo img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
         }
 
         .sidebar-title {
@@ -142,46 +146,46 @@
         }
 
         /* Menu Styles */
-       .sidebar-menu {
-    padding: 0;
-    overflow-y: auto; /* Membuat menu dapat digulir */
-    height: calc(100vh - var(--topbar-height) - 3.5rem); /* Menyisakan ruang untuk header dan footer */
-}
+        .sidebar-menu {
+            padding: 0;
+            overflow-y: auto;
+            height: calc(100vh - var(--topbar-height) - 3.5rem);
+        }
 
-.menu-item {
-    margin: 0.25rem 1rem;
-}
+        .menu-item {
+            margin: 0.25rem 1rem;
+        }
 
-.menu-link {
-    display: flex;
-    align-items: center;
-    padding: 0.9rem 1rem;
-    color: var(--text-light);
-    text-decoration: none;
-    border-radius: 12px;
-    transition: all 0.3s;
-    position: relative;
-    gap: 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(5px);
-}
+        .menu-link {
+            display: flex;
+            align-items: center;
+            padding: 0.9rem 1rem;
+            color: var(--text-light);
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s;
+            position: relative;
+            gap: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+        }
 
-.menu-link:hover {
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    transform: translateX(5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
+        .menu-link:hover {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
 
         .menu-link.active {
-            background: linear-gradient(135deg, var(--gold-color), #ffd700);
-            color: var(--dark-color);
+            background: linear-gradient(135deg, var(--gold-color), #16a34a);
+            color: white;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 4px 15px rgba(52, 212, 116, 0.3);
         }
 
         .menu-link.active .menu-icon {
-            color: var(--dark-color);
+            color: white;
         }
 
         .menu-icon {
@@ -193,7 +197,7 @@
         }
 
         .menu-link.active .menu-icon {
-            color: var(--dark-color);
+            color: white;
         }
 
         .menu-text {
@@ -229,7 +233,7 @@
             padding: 0.2rem 0.6rem;
             border-radius: 20px;
             font-weight: 600;
-            box-shadow: 0 2px 4px rgba(230, 57, 70, 0.2);
+            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
         }
 
         /* Submenu */
@@ -269,8 +273,6 @@
             border-left: 3px solid var(--gold-color);
         }
 
-       
-
         /* Topbar */
         .topbar {
             position: fixed;
@@ -279,7 +281,7 @@
             right: 0;
             height: var(--topbar-height);
             background: white;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 4px 20px rgba(22, 101, 52, 0.08);
             display: flex;
             align-items: center;
             padding: 0 2rem;
@@ -296,7 +298,7 @@
             width: 44px;
             height: 44px;
             border: none;
-            background: linear-gradient(135deg, var(--light-color), #e9ecef);
+            background: linear-gradient(135deg, var(--light-color), #dcfce8);
             border-radius: 12px;
             cursor: pointer;
             display: flex;
@@ -311,7 +313,7 @@
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(26, 58, 108, 0.2);
+            box-shadow: 0 4px 12px rgba(22, 101, 52, 0.25);
         }
 
         .breadcrumb-wrapper {
@@ -340,7 +342,7 @@
         }
 
         .breadcrumb-item.active {
-            color: #6c757d;
+            color: #64748b;
         }
 
         .quick-actions {
@@ -356,8 +358,8 @@
 
         .quick-action-btn {
             padding: 0.6rem 1.2rem;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-            border: 1px solid #dee2e6;
+            background: linear-gradient(135deg, #f0fdf6, #dcfce8);
+            border: 1px solid #bbf7d2;
             border-radius: 10px;
             color: var(--dark-color);
             font-size: 0.875rem;
@@ -375,7 +377,7 @@
             color: white;
             border-color: var(--primary-color);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(26, 58, 108, 0.2);
+            box-shadow: 0 4px 12px rgba(22, 101, 52, 0.25);
         }
 
         /* Notification Dropdown */
@@ -384,7 +386,7 @@
             width: 44px;
             height: 44px;
             border: none;
-            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            background: linear-gradient(135deg, #f0fdf6, #dcfce8);
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s;
@@ -408,26 +410,26 @@
             font-weight: 700;
             min-width: 20px;
             text-align: center;
-            box-shadow: 0 2px 4px rgba(230, 57, 70, 0.2);
+            box-shadow: 0 2px 4px rgba(239, 68, 68, 0.2);
         }
 
         /* Notification Dropdown Styling */
         .dropdown-menu {
             border: none;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 10px 30px rgba(22, 101, 52, 0.12);
             overflow: hidden;
             margin-top: 10px;
         }
 
         .dropdown-item {
             padding: 1rem;
-            border-bottom: 1px solid #f1f5f9;
+            border-bottom: 1px solid #f0fdf6;
             transition: all 0.3s;
         }
 
         .dropdown-item:hover {
-            background-color: #f8fafc;
+            background-color: #f0fdf6;
         }
 
         /* Main Content */
@@ -437,7 +439,7 @@
             padding: 2rem;
             transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             min-height: calc(100vh - var(--topbar-height));
-            background: linear-gradient(135deg, #f5f7fb 0%, #eef2ff 100%);
+            background: linear-gradient(135deg, #f0fdf6 0%, #dcfce8 100%);
         }
 
         .sidebar.collapsed~.main-content {
@@ -594,174 +596,158 @@
 
     <script>
         // Sidebar Toggle
-            const sidebar = document.getElementById('sidebar');
-            const menuToggle = document.getElementById('menuToggle');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
 
-            function isMobileView() {
-                return window.innerWidth < 992;
+        function isMobileView() {
+            return window.innerWidth < 992;
+        }
+
+        menuToggle.addEventListener('click', () => {
+            if (isMobileView()) {
+                sidebar.classList.toggle('active');
+                sidebarOverlay.classList.toggle('active');
+                document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
+            } else {
+                sidebar.classList.toggle('collapsed');
+                localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
             }
+        });
 
-            menuToggle.addEventListener('click', () => {
-                if (isMobileView()) {
-                    sidebar.classList.toggle('active');
-                    sidebarOverlay.classList.toggle('active');
-                    document.body.style.overflow = sidebar.classList.contains('active') ? 'hidden' : '';
-                } else {
-                    sidebar.classList.toggle('collapsed');
-                    localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        // Load sidebar state on desktop
+        window.addEventListener('load', () => {
+            if (!isMobileView()) {
+                const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+                if (isCollapsed) {
+                    sidebar.classList.add('collapsed');
                 }
-            });
+            }
+        });
 
-            sidebarOverlay.addEventListener('click', () => {
-                sidebar.classList.remove('active');
-                sidebarOverlay.classList.remove('active');
-                document.body.style.overflow = '';
-            });
+        // Submenu Toggle - FIXED VERSION
+        document.querySelectorAll('.has-submenu').forEach(item => {
+            const menuLink = item.querySelector('.menu-link');
 
-            // Load sidebar state on desktop
-            window.addEventListener('load', () => {
-                if (!isMobileView()) {
-                    const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
-                    if (isCollapsed) {
-                        sidebar.classList.add('collapsed');
-                    }
-                }
-            });
+            if (menuLink) {
+                menuLink.addEventListener('click', (e) => {
+                    if (menuLink.getAttribute('href') === '#' || !menuLink.getAttribute('href')) {
+                        e.preventDefault();
 
-            // Submenu Toggle - FIXED VERSION
-            document.querySelectorAll('.has-submenu').forEach(item => {
-                const menuLink = item.querySelector('.menu-link');
+                        if (!isMobileView() && sidebar.classList.contains('collapsed')) {
+                            sidebar.classList.remove('collapsed');
+                            localStorage.setItem('sidebarCollapsed', false);
+                            return;
+                        }
 
-                if (menuLink) {
-                    menuLink.addEventListener('click', (e) => {
-                        // Cegah aksi default hanya jika bukan link yang mengarah ke halaman lain
-                        if (menuLink.getAttribute('href') === '#' || !menuLink.getAttribute('href')) {
-                            e.preventDefault();
+                        item.classList.toggle('active');
 
-                            // Cek apakah sidebar collapsed (desktop)
-                            if (!isMobileView() && sidebar.classList.contains('collapsed')) {
-                                // Jika sidebar collapsed, expand sidebar dulu
-                                sidebar.classList.remove('collapsed');
-                                localStorage.setItem('sidebarCollapsed', false);
-                                return;
-                            }
-
-                            // Toggle current submenu
-                            item.classList.toggle('active');
-
-                            // Tampilkan atau sembunyikan submenu sesuai dengan status submenu
-                            const submenu = item.querySelector('.submenu');
-                            if (submenu) {
-                                if (item.classList.contains('active')) {
-                                    submenu.style.maxHeight = submenu.scrollHeight + "px"; // buka submenu
-                                } else {
-                                    submenu.style.maxHeight = '0'; // tutup submenu
-                                }
-                            }
-
-                            // Close other submenus pada level yang sama
-                            const parentMenu = item.parentElement;
-                            if (parentMenu.classList.contains('sidebar-menu')) {
-                                parentMenu.querySelectorAll('.has-submenu').forEach(otherItem => {
-                                    if (otherItem !== item && !otherItem.contains(item)) {
-                                        otherItem.classList.remove('active');
-                                        const otherSubmenu = otherItem.querySelector('.submenu');
-                                        if (otherSubmenu) {
-                                            otherSubmenu.style.maxHeight = '0'; // tutup submenu lainnya
-                                        }
-                                    }
-                                });
+                        const submenu = item.querySelector('.submenu');
+                        if (submenu) {
+                            if (item.classList.contains('active')) {
+                                submenu.style.maxHeight = submenu.scrollHeight + "px";
+                            } else {
+                                submenu.style.maxHeight = '0';
                             }
                         }
-                    });
-                }
-            });
 
-            // Set active menu based on current URL
-            window.addEventListener('load', () => {
-                const currentPath = window.location.pathname;
-
-                // Cari semua link di sidebar
-                document.querySelectorAll('.sidebar a').forEach(link => {
-                    const href = link.getAttribute('href');
-
-                    // Jika href adalah route yang valid dan cocok dengan current path
-                    if (href && href !== '#' && href !== '') {
-                        // Hapus parameter query jika ada
-                        const cleanHref = href.split('?')[0];
-
-                        // Cek jika current path cocok dengan href
-                        if (currentPath === cleanHref) {
-                            link.classList.add('active');
-
-                            // Aktifkan parent submenu jika ada
-                            const parentSubmenu = link.closest('.submenu');
-                            if (parentSubmenu) {
-                                const parentMenuItem = parentSubmenu.closest('.has-submenu');
-                                if (parentMenuItem) {
-                                    parentMenuItem.classList.add('active');
+                        const parentMenu = item.parentElement;
+                        if (parentMenu.classList.contains('sidebar-menu')) {
+                            parentMenu.querySelectorAll('.has-submenu').forEach(otherItem => {
+                                if (otherItem !== item && !otherItem.contains(item)) {
+                                    otherItem.classList.remove('active');
+                                    const otherSubmenu = otherItem.querySelector('.submenu');
+                                    if (otherSubmenu) {
+                                        otherSubmenu.style.maxHeight = '0';
+                                    }
                                 }
-                            }
+                            });
                         }
                     }
                 });
-            });
+            }
+        });
 
-            // Handle window resize
-            let resizeTimer;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(() => {
-                    if (!isMobileView()) {
-                        // Switch to desktop mode
+        // Set active menu based on current URL
+        window.addEventListener('load', () => {
+            const currentPath = window.location.pathname;
+
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                const href = link.getAttribute('href');
+
+                if (href && href !== '#' && href !== '') {
+                    const cleanHref = href.split('?')[0];
+
+                    if (currentPath === cleanHref) {
+                        link.classList.add('active');
+
+                        const parentSubmenu = link.closest('.submenu');
+                        if (parentSubmenu) {
+                            const parentMenuItem = parentSubmenu.closest('.has-submenu');
+                            if (parentMenuItem) {
+                                parentMenuItem.classList.add('active');
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+        // Handle window resize
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                if (!isMobileView()) {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                } else {
+                    sidebar.classList.remove('collapsed');
+                    document.querySelectorAll('.has-submenu').forEach(item => {
+                        item.classList.remove('active');
+                        const submenu = item.querySelector('.submenu');
+                        if (submenu) {
+                            submenu.style.maxHeight = '0';
+                        }
+                    });
+                }
+            }, 250);
+        });
+
+        // Close sidebar when clicking links in mobile
+        if (isMobileView()) {
+            document.querySelectorAll('.sidebar a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (!link.closest('.has-submenu') || link.getAttribute('href') !== '#') {
                         sidebar.classList.remove('active');
                         sidebarOverlay.classList.remove('active');
                         document.body.style.overflow = '';
-                    } else {
-                        // Switch to mobile mode
-                        sidebar.classList.remove('collapsed');
-                        // Tutup semua submenu saat pindah ke mobile
-                        document.querySelectorAll('.has-submenu').forEach(item => {
-                            item.classList.remove('active');
-                            const submenu = item.querySelector('.submenu');
-                            if (submenu) {
-                                submenu.style.maxHeight = '0'; // tutup semua submenu saat pindah ke mobile
-                            }
-                        });
                     }
-                }, 250);
+                });
             });
+        }
 
-            // Close sidebar when clicking links in mobile
-            if (isMobileView()) {
-                document.querySelectorAll('.sidebar a').forEach(link => {
-                    link.addEventListener('click', (e) => {
-                        // Jika bukan link untuk toggle submenu
-                        if (!link.closest('.has-submenu') || link.getAttribute('href') !== '#') {
-                            sidebar.classList.remove('active');
-                            sidebarOverlay.classList.remove('active');
-                            document.body.style.overflow = '';
+        // Close all submenus when clicking outside in mobile
+        document.addEventListener('click', (e) => {
+            if (isMobileView() && sidebar.classList.contains('active')) {
+                if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
+                    document.querySelectorAll('.has-submenu').forEach(item => {
+                        item.classList.remove('active');
+                        const submenu = item.querySelector('.submenu');
+                        if (submenu) {
+                            submenu.style.maxHeight = '0';
                         }
                     });
-                });
-            }
-
-            // Close all submenus when clicking outside in mobile
-            document.addEventListener('click', (e) => {
-                if (isMobileView() && sidebar.classList.contains('active')) {
-                    if (!sidebar.contains(e.target) && !menuToggle.contains(e.target)) {
-                        document.querySelectorAll('.has-submenu').forEach(item => {
-                            item.classList.remove('active');
-                            const submenu = item.querySelector('.submenu');
-                            if (submenu) {
-                                submenu.style.maxHeight = '0'; // tutup submenu jika klik di luar
-                            }
-                        });
-                    }
                 }
-            });
-
+            }
+        });
     </script>
     @yield('scripts')
 </body>
