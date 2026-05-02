@@ -1,7 +1,7 @@
 <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <div class="sidebar-logo">
-            <img src="{{ asset('gambar/lanri.png') }}" alt="Logo LAN RI">
+            <img src="{{ asset('gambar/sdm.png') }}" alt="Logo LAN RI">
         </div>
         <div class="sidebar-title">
             <h5>JABLAYMEN</h5>
