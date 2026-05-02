@@ -31,14 +31,16 @@
                 <i class="fas fa-chevron-right menu-arrow"></i>
             </a>
             <div class="submenu">
-                <a href="#" class="submenu-link">
+                <a href="{{ route('pengajuan.pending') }}" class="submenu-link">
                     <i class="fas fa-clock me-2"></i> Menunggu Persetujuan
-                    {{-- Badge jumlah pending --}}
-                    @if($pendingCount ?? 0 > 0)
+                    @php
+                        $pendingCount = App\Models\Pengajuan::where('status', 'menunggu')->count();
+                    @endphp
+                    @if($pendingCount > 0)
                         <span class="badge bg-danger ms-auto">{{ $pendingCount }}</span>
                     @endif
                 </a>
-                <a href="#" class="submenu-link">
+                <a href="{{ route('pengajuan.history') }}" class="submenu-link">
                     <i class="fas fa-history me-2"></i> Riwayat Pengajuan
                 </a>
             </div>
@@ -52,10 +54,10 @@
                 <i class="fas fa-chevron-right menu-arrow"></i>
             </a>
             <div class="submenu">
-                <a href="#" class="submenu-link">
+                <a href="{{ route('folder.kategori.index') }}" class="submenu-link">
                     <i class="fas fa-layer-group me-2"></i> Kategori Folder
                 </a>
-                <a href="#" class="submenu-link">
+                <a href="{{ route('folder.index') }}" class="submenu-link">
                     <i class="fas fa-folder me-2"></i> Daftar Folder
                 </a>
             </div>
@@ -63,7 +65,7 @@
 
         <!-- Semua Dokumen -->
         <div class="menu-item">
-            <a href="#" class="menu-link">
+            <a href="{{ route('admin.dokumen.index') }}" class="menu-link">
                 <i class="fas fa-file-alt menu-icon"></i>
                 <span class="menu-text">Semua Dokumen</span>
             </a>
@@ -77,10 +79,10 @@
                 <i class="fas fa-chevron-right menu-arrow"></i>
             </a>
             <div class="submenu">
-                <a href="#" class="submenu-link">
+                <a href="{{ route('pegawai.index') }}" class="submenu-link">
                     <i class="fas fa-user-tie me-2"></i> Data Pegawai
                 </a>
-                <a href="#" class="submenu-link">
+                <a href="{{ route('unit-kerja.index') }}" class="submenu-link">
                     <i class="fas fa-sitemap me-2"></i> Unit Kerja
                 </a>
             </div>
@@ -109,7 +111,7 @@
 
         <!-- Ajukan Dokumen -->
         <div class="menu-item">
-            <a href="#" class="menu-link">
+            <a href="{{ route('dokumen.create') }}" class="menu-link">
                 <i class="fas fa-upload menu-icon"></i>
                 <span class="menu-text">Ajukan Dokumen</span>
             </a>
@@ -117,11 +119,15 @@
 
         <!-- Status Pengajuan -->
         <div class="menu-item">
-            <a href="#" class="menu-link">
+            <a href="{{ route('pengajuan.status') }}" class="menu-link">
                 <i class="fas fa-clipboard-list menu-icon"></i>
                 <span class="menu-text">Status Pengajuan</span>
-                {{-- Badge jika ada pengajuan pending milik pegawai --}}
-                @if($myPendingCount ?? 0 > 0)
+                @php
+                    $myPendingCount = App\Models\Pengajuan::where('pegawai_id', auth()->user()->pegawai->id ?? 0)
+                        ->where('status', 'menunggu')
+                        ->count();
+                @endphp
+                @if($myPendingCount > 0)
                     <span class="badge bg-warning ms-auto">{{ $myPendingCount }}</span>
                 @endif
             </a>
@@ -129,7 +135,7 @@
 
         <!-- Dokumen Saya -->
         <div class="menu-item">
-            <a href="#" class="menu-link">
+            <a href="{{ route('dokumen.saya') }}" class="menu-link">
                 <i class="fas fa-folder-open menu-icon"></i>
                 <span class="menu-text">Dokumen Saya</span>
             </a>
@@ -141,21 +147,35 @@
 
         <!-- Notifikasi -->
         <div class="menu-item">
-            <a href="#" class="menu-link">
+            <a href="{{ route('notifikasi.index') }}" class="menu-link">
                 <i class="fas fa-bell menu-icon"></i>
                 <span class="menu-text">Notifikasi</span>
-                @if($unreadNotif ?? 0 > 0)
+                @php
+                    $unreadNotif = auth()->user()->notifikasis()->where('is_read', false)->count();
+                @endphp
+                @if($unreadNotif > 0)
                     <span class="badge bg-danger ms-auto">{{ $unreadNotif }}</span>
                 @endif
             </a>
         </div>
 
+        <!-- Profile -->
+        <div class="menu-item">
+            <a href="{{ route('profile.index') }}" class="menu-link">
+                <i class="fas fa-user-circle menu-icon"></i>
+                <span class="menu-text">Profil Saya</span>
+            </a>
+        </div>
+
         <!-- Logout -->
         <div class="menu-item">
-            <a href="{{ route('logout') }}" class="menu-link">
+            <a href="{{ route('logout') }}" class="menu-link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fas fa-sign-out-alt menu-icon"></i>
                 <span class="menu-text">Keluar</span>
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="GET" style="display: none;">
+                @csrf
+            </form>
         </div>
 
     </nav>
